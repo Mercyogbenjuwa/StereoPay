@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import Media from './entity/media.entity';
 import { MediaDto } from './dtos/media.dto';
 
+
 @Injectable()
 export class MediaService {
   constructor(
@@ -51,4 +52,17 @@ export class MediaService {
     }
     return media;
   }
+
+  //***################################ Search Media ***################################//
+  public async searchMedia(query: string): Promise<Media[]> {
+    try {
+      const qb = this.mediaRepository.createQueryBuilder('media');
+      return qb
+        .where(`media.name LIKE :query OR media.description LIKE :query`, { query: `%${query}%` })
+        .getMany();
+    } catch (error) {
+      throw new NotFoundException('No media found');
+    }
+  }   
 }
+

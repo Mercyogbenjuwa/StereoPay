@@ -3,6 +3,7 @@ import {
   IsEnum,
   IsString,
   IsNumber,
+  IsOptional,
 } from 'class-validator';
 
 enum MediaStatus {
@@ -16,6 +17,7 @@ enum MediaType {
 }
 
 export class MediaDto {
+  @IsOptional()
   id: number;
 
   @IsEnum(MediaType)

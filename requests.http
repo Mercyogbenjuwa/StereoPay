@@ -11,7 +11,7 @@ content-type: application/json
   "status": "Active"
 }
 
-#### Create a new media
+#### Get all media
 
 GET  http://localhost:3000/media
 content-type: application/json
@@ -19,8 +19,12 @@ content-type: application/json
 
 #### Get Media By Id
 
-GET  http://localhost:3000/media/0
+GET  http://localhost:3000/media/2
 content-type: application/json
 
 
+#### Search For Media
+
+GET http://localhost:3000/media/search?query=example
+content-type: application/json
 

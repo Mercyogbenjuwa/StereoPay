@@ -7,6 +7,9 @@ import {
   Query,
   Get,
   Param,
+  Patch,
+  Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { MediaService } from './media.service';
 import { MediaDto } from './dtos/media.dto';
@@ -29,6 +32,16 @@ export class MediaController {
     }
   }
 
+  @Get('search')
+  public async searchMedia(@Query('query') query: string) {
+    try {
+      const media = await this.mediaService.searchMedia(query);
+      return { status: 'success', message: 'Search found', data: media };
+    } catch (error) {
+        throw new HttpException('No media found', HttpStatus.NOT_FOUND);
+    }
+  }
+
   @Get()
   async findAll(
     @Query('page') page: number,
@@ -47,6 +60,7 @@ export class MediaController {
     }
   }
 
+
   @Get(':id')
   async getMediaById(@Param('id') id: string) {
     try {
@@ -60,4 +74,5 @@ export class MediaController {
       throw new HttpException('Id not found', HttpStatus.NOT_FOUND);
     }
   }
+
 }
