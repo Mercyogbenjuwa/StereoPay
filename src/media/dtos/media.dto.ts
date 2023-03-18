@@ -1,10 +1,7 @@
 import {
   IsNotEmpty,
-  IsUUID,
   IsEnum,
   IsString,
-  IsOptional,
-  IsDateString,
   IsNumber,
 } from 'class-validator';
 
@@ -19,7 +16,6 @@ enum MediaType {
 }
 
 export class MediaDto {
-  @IsUUID()
   id: number;
 
   @IsEnum(MediaType)

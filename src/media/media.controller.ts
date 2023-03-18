@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Query,
   Get,
+  Param,
 } from '@nestjs/common';
 import { MediaService } from './media.service';
 import { MediaDto } from './dtos/media.dto';
@@ -43,6 +44,20 @@ export class MediaController {
       };
     } catch (error) {
       throw new HttpException('Failed to fetch results', HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @Get(':id')
+  async getMediaById(@Param('id') id: string) {
+    try {
+      const media = await this.mediaService.getMediaById(Number(id));
+      return {
+        status: 'success',
+        message: 'Media fetched successfully',
+        data: media,
+      };
+    } catch (error) {
+      throw new HttpException('Id not found', HttpStatus.NOT_FOUND);
     }
   }
 }

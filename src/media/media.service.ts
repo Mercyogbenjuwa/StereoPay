@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import Media from './entity/media.entity';
@@ -20,6 +25,7 @@ export class MediaService {
       throw new HttpException('Failed to create media', HttpStatus.NOT_FOUND);
     }
   }
+
   //***################################ Find All ***################################//
   public async findAll(
     page = 1,
@@ -35,5 +41,14 @@ export class MediaService {
     } catch (error) {
       throw new HttpException('Failed to find media', HttpStatus.NOT_FOUND);
     }
+  }
+
+  //***################################ Getting Media By Id***################################//
+  public async getMediaById(id: number): Promise<Media> {
+    const media = await this.mediaRepository.findOne({ where: { id } });
+    if (!media) {
+      throw new NotFoundException(`Media with ID ${id} not found`);
+    }
+    return media;
   }
 }

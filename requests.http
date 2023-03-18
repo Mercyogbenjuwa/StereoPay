@@ -13,9 +13,14 @@ content-type: application/json
 
 #### Create a new media
 
-GET  http://localhost:3000/
+GET  http://localhost:3000/media
 content-type: application/json
 
 
- 
+#### Get Media By Id
+
+GET  http://localhost:3000/media/0
+content-type: application/json
+
+
 
