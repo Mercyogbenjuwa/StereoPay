@@ -11,3 +11,11 @@ content-type: application/json
   "status": "Active"
 }
 
+#### Create a new media
+
+GET  http://localhost:3000/
+content-type: application/json
+
+
+ 
+

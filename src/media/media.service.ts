@@ -20,4 +20,20 @@ export class MediaService {
       throw new HttpException('Failed to create media', HttpStatus.NOT_FOUND);
     }
   }
+  //***################################ Find All ***################################//
+  public async findAll(
+    page = 1,
+    perPage = 12,
+  ): Promise<{ data: Media[]; count: number }> {
+    try {
+      const [data, count] = await this.mediaRepository.findAndCount({
+        skip: (page - 1) * perPage,
+        take: perPage,
+        order: { updatedAt: 'DESC' },
+      });
+      return { data, count };
+    } catch (error) {
+      throw new HttpException('Failed to find media', HttpStatus.NOT_FOUND);
+    }
+  }
 }
