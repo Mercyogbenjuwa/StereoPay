@@ -1,61 +1,68 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 
-@Entity({ name: 'media'})
+@Entity({ name: 'media' })
 class Media {
   @PrimaryGeneratedColumn({
     type: 'bigint',
-    unsigned: true
+    unsigned: true,
   })
   id: number;
 
-  @Column({ 
-    type: 'enum', 
+  @Column({
+    type: 'enum',
     enum: ['audio', 'image'],
-    default: 'audio' 
-})
+    default: 'audio',
+  })
   type: string;
 
-  @Column({ 
+  @Column({
     type: 'varchar',
     length: 200,
- })
+  })
   name: string;
 
-  @Column({ 
+  @Column({
     type: 'varchar',
     length: 200,
-})
+  })
   description: string;
 
-  @Column({ 
+  @Column({
     type: 'varchar',
     length: 200,
-})
+  })
   url: string;
 
-  @Column({ 
-    type: 'enum', 
-    enum: ['Active', 'Inactive'], 
-    default: 'Active' 
-})
+  @Column({
+    type: 'enum',
+    enum: ['Active', 'Inactive'],
+    default: 'Active',
+  })
   status: string;
 
-  @CreateDateColumn({ 
+  @CreateDateColumn({
     type: 'datetime',
     name: 'created_at',
   })
   readonly createdAt: Date;
 
-  @UpdateDateColumn({ 
+  @UpdateDateColumn({
     type: 'datetime',
     name: 'updated_at',
   })
   readonly updatedAt: Date;
 
-  @DeleteDateColumn({ 
+  @DeleteDateColumn({
     type: 'datetime',
-    name: 'deleted_at' 
-})
+    name: 'deleted_at',
+  })
   deletedAt: Date;
 }
 

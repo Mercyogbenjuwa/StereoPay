@@ -1,15 +1,22 @@
-import { IsNotEmpty, IsUUID, IsEnum, IsString, IsOptional, IsDateString, IsNumber } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsUUID,
+  IsEnum,
+  IsString,
+  IsOptional,
+  IsDateString,
+  IsNumber,
+} from 'class-validator';
 
 enum MediaStatus {
   Active = 'Active',
   Inactive = 'Inactive',
 }
 
-enum MediaType{
-    audio= 'audio',
-    image= 'image'
+enum MediaType {
+  audio = 'audio',
+  image = 'image',
 }
-
 
 export class MediaDto {
   @IsUUID()
@@ -34,16 +41,4 @@ export class MediaDto {
   @IsEnum(MediaStatus)
   @IsNotEmpty()
   status: string;
-
-  @IsDateString()
-  @IsNotEmpty()
-  createdAt: string;
-
-  @IsDateString()
-  @IsNotEmpty()
-  updatedAt: string;
-
-  @IsDateString()
-  @IsOptional()
-  deletedAt: string;
 }

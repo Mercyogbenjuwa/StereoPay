@@ -1,0 +1,13 @@
+#### Create a new media
+
+POST http://localhost:3000/media
+content-type: application/json
+
+{
+  "type": "audio",
+  "name": "My Audio File",
+  "description": "A description of my audio file",
+  "url": "http://example.com/my-audio-file.mp3",
+  "status": "Active"
+}
+

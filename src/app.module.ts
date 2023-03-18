@@ -8,16 +8,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '09027918134',
-    database: 'stereo',
-    entities: [Media],
-    synchronize: true,
-  }),
-    MediaModule],
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: '09027918134',
+      database: 'stereo',
+      entities: [Media],
+      synchronize: false,
+    }),
+    MediaModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
