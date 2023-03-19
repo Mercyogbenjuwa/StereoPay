@@ -9,7 +9,6 @@ import {
   Param,
   Patch,
   Delete,
-  NotFoundException,
 } from '@nestjs/common';
 import { MediaService } from './media.service';
 import { MediaDto } from './dtos/media.dto';

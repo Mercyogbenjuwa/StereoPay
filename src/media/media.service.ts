@@ -17,6 +17,8 @@ export class MediaService {
     private mediaRepository: Repository<Media>,
   ) {}
 
+
+  
   //***################################ Create Media ***################################//
   public async createMedia(mediaDto: MediaDto): Promise<Media> {
     try {
@@ -26,6 +28,8 @@ export class MediaService {
       throw new HttpException('Failed to create media', HttpStatus.NOT_FOUND);
     }
   }
+
+
 
   //***################################ Find All ***################################//
   public async findAll(
@@ -44,6 +48,8 @@ export class MediaService {
     }
   }
 
+
+
   //***################################ Getting Media By Id***################################//
   public async getMediaById(id: number): Promise<Media> {
     const media = await this.mediaRepository.findOne({ where: { id } });
@@ -52,6 +58,7 @@ export class MediaService {
     }
     return media;
   }
+
 
   //***################################ Search Media ***################################//
   public async searchMedia(query: string): Promise<Media[]> {
@@ -68,6 +75,8 @@ export class MediaService {
       throw new HttpException('No media found', HttpStatus.NOT_FOUND);
     }
   }
+
+
 //***################################ Update Media ***################################//
   public async updateMedia(id: number, mediaDto: MediaDto): Promise<Media> {
     const media = await this.mediaRepository.findOne({ where: { id } });
@@ -77,6 +86,7 @@ export class MediaService {
     media.status = mediaDto.status;
     return this.mediaRepository.save(media);
   }  
+
 
   //***################################ Delete Media ***################################//
   public async removeMedia(id: string): Promise<void> {
