@@ -9,7 +9,6 @@ import { Repository } from 'typeorm';
 import Media from './entity/media.entity';
 import { MediaDto } from './dtos/media.dto';
 
-
 @Injectable()
 export class MediaService {
   constructor(
@@ -17,8 +16,6 @@ export class MediaService {
     private mediaRepository: Repository<Media>,
   ) {}
 
-
-  
   //***################################ Create Media ***################################//
   public async createMedia(mediaDto: MediaDto): Promise<Media> {
     try {
@@ -28,8 +25,6 @@ export class MediaService {
       throw new HttpException('Failed to create media', HttpStatus.NOT_FOUND);
     }
   }
-
-
 
   //***################################ Find All ***################################//
   public async findAll(
@@ -48,8 +43,6 @@ export class MediaService {
     }
   }
 
-
-
   //***################################ Getting Media By Id***################################//
   public async getMediaById(id: number): Promise<Media> {
     const media = await this.mediaRepository.findOne({ where: { id } });
@@ -59,13 +52,14 @@ export class MediaService {
     return media;
   }
 
-
   //***################################ Search Media ***################################//
   public async searchMedia(query: string): Promise<Media[]> {
     try {
       const qb = this.mediaRepository.createQueryBuilder('media');
       const media = await qb
-        .where(`media.name LIKE :query OR media.description LIKE :query`, { query: `%${query}%` })
+        .where(`media.name LIKE :query OR media.description LIKE :query`, {
+          query: `%${query}%`,
+        })
         .getMany();
       if (media.length === 0) {
         throw new NotFoundException('No media found');
@@ -76,8 +70,7 @@ export class MediaService {
     }
   }
 
-
-//***################################ Update Media ***################################//
+  //***################################ Update Media ***################################//
   public async updateMedia(id: number, mediaDto: MediaDto): Promise<Media> {
     const media = await this.mediaRepository.findOne({ where: { id } });
     if (!media) {
@@ -85,8 +78,7 @@ export class MediaService {
     }
     media.status = mediaDto.status;
     return this.mediaRepository.save(media);
-  }  
-
+  }
 
   //***################################ Delete Media ***################################//
   public async removeMedia(id: string): Promise<void> {
@@ -96,6 +88,4 @@ export class MediaService {
       throw new HttpException('Id not found', HttpStatus.NOT_FOUND);
     }
   }
-
 }
-

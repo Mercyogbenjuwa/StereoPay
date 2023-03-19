@@ -39,7 +39,7 @@ export class MediaController {
       message: `${media.length} media found`,
       data: media,
     };
-  }  
+  }
 
   @Get()
   async findAll(
@@ -59,7 +59,6 @@ export class MediaController {
     }
   }
 
-
   @Get(':id')
   async getMediaById(@Param('id') id: string) {
     try {
@@ -74,25 +73,30 @@ export class MediaController {
     }
   }
 
-@Patch(':id')
-    public async updateMedia(@Param('id') id: number, @Body() mediaDto: MediaDto) {
-  try {
-    const media = await this.mediaService.updateMedia(id, mediaDto);
-    return { status: 'success', message:'Updated successfully', data: media };
-  } catch (error) {
-    throw new HttpException('Failed to update media', HttpStatus.NOT_FOUND);
+  @Patch(':id')
+  public async updateMedia(
+    @Param('id') id: number,
+    @Body() mediaDto: MediaDto,
+  ) {
+    try {
+      const media = await this.mediaService.updateMedia(id, mediaDto);
+      return {
+        status: 'success',
+        message: 'Updated successfully',
+        data: media,
+      };
+    } catch (error) {
+      throw new HttpException('Failed to update media', HttpStatus.NOT_FOUND);
+    }
   }
-}
 
-@Delete(':id')
-public async removeMedia(@Param('id') id: string) {
-  try {
-    await this.mediaService.removeMedia(id);
-    return { status: 'success', message: 'Media item has been deleted' };
-  } catch (error) {
-    throw new HttpException('Delete not sucessful', HttpStatus.NOT_FOUND);
+  @Delete(':id')
+  public async removeMedia(@Param('id') id: string) {
+    try {
+      await this.mediaService.removeMedia(id);
+      return { status: 'success', message: 'Media item has been deleted' };
+    } catch (error) {
+      throw new HttpException('Delete not sucessful', HttpStatus.NOT_FOUND);
+    }
   }
-}
-
-
 }
