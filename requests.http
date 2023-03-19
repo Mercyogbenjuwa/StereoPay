@@ -25,6 +25,17 @@ content-type: application/json
 
 #### Search For Media
 
-GET http://localhost:3000/media/search?query=example
+GET http://localhost:3000/media/search?query=description
 content-type: application/json
+
+
+#### Update Media By Id
+
+PATCH  http://localhost:3000/media/2
+content-type: application/json
+
+{
+  "status": "Inactive"
+}
+
 

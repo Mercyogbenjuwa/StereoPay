@@ -57,12 +57,25 @@ export class MediaService {
   public async searchMedia(query: string): Promise<Media[]> {
     try {
       const qb = this.mediaRepository.createQueryBuilder('media');
-      return qb
+      const media = await qb
         .where(`media.name LIKE :query OR media.description LIKE :query`, { query: `%${query}%` })
         .getMany();
+      if (media.length === 0) {
+        throw new NotFoundException('No media found');
+      }
+      return media;
     } catch (error) {
-      throw new NotFoundException('No media found');
+      throw new HttpException('No media found', HttpStatus.NOT_FOUND);
     }
-  }   
+  }
+//***################################ Update Media ***################################//
+  public async updateMedia(id: number, mediaDto: MediaDto): Promise<Media> {
+    const media = await this.mediaRepository.findOne({ where: { id } });
+    if (!media) {
+      throw new HttpException('Media not found', HttpStatus.NOT_FOUND);
+    }
+    media.status = mediaDto.status;
+    return this.mediaRepository.save(media);
+  }  
 }
 

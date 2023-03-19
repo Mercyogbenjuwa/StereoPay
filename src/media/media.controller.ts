@@ -34,13 +34,13 @@ export class MediaController {
 
   @Get('search')
   public async searchMedia(@Query('query') query: string) {
-    try {
-      const media = await this.mediaService.searchMedia(query);
-      return { status: 'success', message: 'Search found', data: media };
-    } catch (error) {
-        throw new HttpException('No media found', HttpStatus.NOT_FOUND);
-    }
-  }
+    const media = await this.mediaService.searchMedia(query);
+    return {
+      status: 'success',
+      message: `${media.length} media found`,
+      data: media,
+    };
+  }  
 
   @Get()
   async findAll(
@@ -74,5 +74,15 @@ export class MediaController {
       throw new HttpException('Id not found', HttpStatus.NOT_FOUND);
     }
   }
+
+@Patch(':id')
+    public async updateMedia(@Param('id') id: number, @Body() mediaDto: MediaDto) {
+  try {
+    const media = await this.mediaService.updateMedia(id, mediaDto);
+    return { status: 'success', message:'Updated successfully', data: media };
+  } catch (error) {
+    throw new HttpException('Failed to update media', HttpStatus.NOT_FOUND);
+  }
+}
 
 }
