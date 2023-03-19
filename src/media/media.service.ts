@@ -77,5 +77,15 @@ export class MediaService {
     media.status = mediaDto.status;
     return this.mediaRepository.save(media);
   }  
+
+  //***################################ Delete Media ***################################//
+  public async removeMedia(id: string): Promise<void> {
+    try {
+      await this.mediaRepository.softDelete(id);
+    } catch (error) {
+      throw new HttpException('Id not found', HttpStatus.NOT_FOUND);
+    }
+  }
+
 }
 

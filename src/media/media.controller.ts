@@ -85,4 +85,15 @@ export class MediaController {
   }
 }
 
+@Delete(':id')
+public async removeMedia(@Param('id') id: string) {
+  try {
+    await this.mediaService.removeMedia(id);
+    return { status: 'success', message: 'Media item has been deleted' };
+  } catch (error) {
+    throw new HttpException('Delete not sucessful', HttpStatus.NOT_FOUND);
+  }
+}
+
+
 }
